@@ -1,27 +1,15 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
+use App\Events\TaskCreated;
+use App\Notifications\TaskAssigned;
 
-class SendTaskReminderJob implements ShouldQueue
+class SendTaskCreatedNotification
 {
-    use Queueable;
-
-    /**
-     * Create a new job instance.
-     */
-    public function __construct()
+    public function handle(TaskCreated $event)
     {
-        //
-    }
-
-    /**
-     * Execute the job.
-     */
-    public function handle(): void
-    {
-        //
+        $event->task->user->notify(new TaskAssigned($event->task));
     }
 }
+?>

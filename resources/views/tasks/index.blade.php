@@ -1,12 +1,9 @@
-<!-- resources/views/tasks/index.blade.php -->
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Task Manager</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-
 <body>
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4">Tasks</h1>
@@ -15,8 +12,7 @@
                 {{ session('success') }}
             </div>
         @endif
-        <a href="{{ route('tasks.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">Create
-            Task</a>
+        <a href="{{ route('tasks.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">Create Task</a>
         <table class="w-full border-collapse border">
             <thead>
                 <tr>
@@ -38,8 +34,7 @@
                             <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-500 ml-2"
-                                    onclick="return confirm('Are you sure?')">Delete</button>
+                                <button type="submit" class="text-red-500 ml-2" onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -48,5 +43,4 @@
         </table>
     </div>
 </body>
-
 </html>

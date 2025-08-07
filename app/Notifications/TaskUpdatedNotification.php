@@ -7,7 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TaskAssigned extends Notification
+class TaskUpdatedNotification extends Notification
 {
     use Queueable;
 
@@ -26,7 +26,7 @@ class TaskAssigned extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('A new task has been assigned to you!')
+                    ->line('Your task has been updated!')
                     ->line('Title: ' . $this->task->title)
                     ->action('View Task', url('/tasks/' . $this->task->id))
                     ->line('Due Date: ' . $this->task->due_date);
@@ -37,7 +37,7 @@ class TaskAssigned extends Notification
         return [
             'task_id' => $this->task->id,
             'title' => $this->task->title,
-            'message' => 'A new task has been assigned to you!',
+            'message' => 'Your task has been updated!',
         ];
     }
 }

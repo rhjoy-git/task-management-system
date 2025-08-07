@@ -2,24 +2,14 @@
 
 namespace App\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\TaskCreated;
+use App\Notifications\TaskAssigned;
 
 class SendTaskCreatedNotification
 {
-    /**
-     * Create the event listener.
-     */
-    public function __construct()
+    public function handle(TaskCreated $event)
     {
-        //
-    }
-
-    /**
-     * Handle the event.
-     */
-    public function handle(object $event): void
-    {
-        //
+        $event->task->user->notify(new TaskAssigned($event->task));
     }
 }
+?>

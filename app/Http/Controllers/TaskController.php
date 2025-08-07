@@ -10,9 +10,7 @@ use App\Services\TaskService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Routing\Controller as BaseController;
-
-class TaskController extends BaseController
+class TaskController extends Controller
 {
     protected $taskService;
 

@@ -5,7 +5,7 @@ namespace App\Events;
 use App\Models\Task;
 use Illuminate\Queue\SerializesModels;
 
-class TaskCreated
+class TaskUpdated
 {
     use SerializesModels;
 
@@ -16,4 +16,3 @@ class TaskCreated
         $this->task = $task;
     }
 }
-?>
