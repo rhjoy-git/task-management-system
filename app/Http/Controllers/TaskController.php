@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
+use App\Http\Middleware\EnsureEmailIsVerified;
 use App\Jobs\SendTaskReminderJob;
 use App\Models\Task;
 use App\Notifications\TaskAssigned;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Controller;
 
 class TaskController extends Controller
 {
