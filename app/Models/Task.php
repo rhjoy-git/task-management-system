@@ -10,8 +10,14 @@ class Task extends Model
 {
     use HasFactory, TaskStatus;
 
-    protected $fillable = ['title', 'description', 'due_date', 'user_id', 'status'];
-
+    protected $fillable = [
+        'title',
+        'description',
+        'due_date',
+        'user_id',
+        'status',
+    ];
+    
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -22,4 +28,3 @@ class Task extends Model
         'updated' => \App\Events\TaskUpdated::class,
     ];
 }
-?>
