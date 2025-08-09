@@ -25,6 +25,7 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::with('user')->get();
+        // dd($tasks);
         return view('tasks.index', compact('tasks'));
     }
 
@@ -36,7 +37,7 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         $task = $this->taskService->createTask($request->validated(), Auth::user());
-        SendTaskReminderJob::dispatch($task)->delay(now()->addHours(24));
+        dispatch((new SendTaskReminderJob($task))->delay(now()->addHours(24)));
         Auth::user()->notify(new TaskAssigned($task));
         return redirect()->route('tasks.index')->with('success', 'Task created!');
     }
@@ -92,4 +93,3 @@ class TaskController extends Controller
         return response()->json(null, 204);
     }
 }
-?>

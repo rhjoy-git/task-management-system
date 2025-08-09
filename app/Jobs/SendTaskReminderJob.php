@@ -1,15 +1,31 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Jobs;
 
-use App\Events\TaskCreated;
-use App\Notifications\TaskAssigned;
+use App\Models\Task;
+use App\Mail\TaskReminder;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
-class SendTaskCreatedNotification
+class SendTaskReminderJob implements ShouldQueue
 {
-    public function handle(TaskCreated $event)
+    use Queueable;
+
+    protected $task;
+
+    public function __construct(Task $task)
     {
-        $event->task->user->notify(new TaskAssigned($event->task));
+        $this->task = $task;
+    }
+
+    public function handle()
+    {
+        if ($this->task->isOverdue()) {
+            Mail::to($this->task->user->email)->send(new TaskReminder($this->task));
+        }
     }
 }
-?>

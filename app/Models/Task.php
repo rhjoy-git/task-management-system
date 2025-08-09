@@ -17,7 +17,7 @@ class Task extends Model
         'user_id',
         'status',
     ];
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -26,5 +26,9 @@ class Task extends Model
     protected $dispatchesEvents = [
         'created' => \App\Events\TaskCreated::class,
         'updated' => \App\Events\TaskUpdated::class,
+    ];
+
+    protected $casts = [
+        'due_date' => 'datetime',
     ];
 }
